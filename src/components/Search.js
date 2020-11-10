@@ -23,26 +23,44 @@ function Search() {
     //   search();
     // }
 
-    if (term !== "") {
-      (async () => {
-        const { data } = await axios.get("https://en.wikipedia.org/w/api.php", {
-          params: {
-            action: "query",
-            format: "json",
-            origin: "*",
-            list: "search",
-            srsearch: term,
-          },
-        });
-        setResults(data["query"]["search"]);
-      })();
-    }
+    const timeoutId = setTimeout(() => {
+      if (term !== "") {
+        (async () => {
+          const { data } = await axios.get(
+            "https://en.wikipedia.org/w/api.php",
+            {
+              params: {
+                action: "query",
+                format: "json",
+                origin: "*",
+                list: "search",
+                srsearch: term,
+              },
+            }
+          );
+          setResults(data["query"]["search"]);
+        })();
+      }
+    }, 500);
   }, [term]);
   const listOfSearchedResults = results.map((topics, index) => {
     return (
       <div key={topics.pageid} className="item">
-        <div className="content">
-          <div className="header">{topics.title}</div>
+        <div className="right floated content">
+          <a
+            href={`https://en.wikipedia.org?curid=${topics.pageid}`}
+            className="ui button"
+          >
+            Go
+          </a>
+        </div>
+        <div
+          className="content"
+          style={{ marginBottom: "20px", marginTop: "20px" }}
+        >
+          <div className="header" style={{ marginBottom: "10px" }}>
+            {topics.title}
+          </div>
           <span dangerouslySetInnerHTML={{ __html: topics.snippet }}></span>
         </div>
       </div>
@@ -55,7 +73,7 @@ function Search() {
     <div className="ui segment">
       <form action="" className="ui form" onSubmit={(e) => userSubmiit(e)}>
         <div className="field">
-          <label> Search Wikipedia</label>
+          <label className="extra large header"> Search Wikipedia</label>
           <input
             className="input"
             type="text"

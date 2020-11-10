@@ -19,8 +19,8 @@ const items = [
 
 function App(props) {
   return (
-    <div className="ui container">
-      <Accordion items={items} />
+    <div className="ui container" style={{ marginTop: "30px" }}>
+      {/* <Accordion items={items} /> */}
       <Search />
     </div>
   );
