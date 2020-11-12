@@ -52,12 +52,12 @@ function Dropdown({ options, selected, onSelectedChange }) {
           </div>
         </div>
       </div>
-      <div
+      {/* <div
         className={`ui  ${selected.value} segment center aligned`}
         style={{ color: selected.value }}
       >
         I am {selected.value} color
-      </div>
+      </div> */}
     </Fragment>
   );
 }

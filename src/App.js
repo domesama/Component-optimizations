@@ -39,7 +39,11 @@ const App = () => {
 
   return (
     <div className="ui container">
-      <div className="ui button" onClick={() => setShowDropdown(!showDropdown)}>
+      <div
+        className="ui pink button"
+        style={{ marginTop: "20px", borderRadius: "50px" }}
+        onClick={() => setShowDropdown(!showDropdown)}
+      >
         Toggle Dropdown
       </div>
 
