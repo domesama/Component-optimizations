@@ -1,8 +1,10 @@
-import React, { useState } from "react";
-// import Accordion from "./components/Accordion";
-// import Search from "./components/Search";
-// import Dropdown from "./components/Dropdown";
+import React, { Fragment, useState } from "react";
+import Accordion from "./components/Accordion";
+import Search from "./components/Search";
+import Dropdown from "./components/Dropdown";
 import Translate from "./components/Translate";
+import Route from "./components/Route";
+import Header from "./components/Header";
 
 const items = [
   {
@@ -35,12 +37,32 @@ const options = [
 ];
 
 const App = () => {
-  // const [selected, setSelected] = useState(options[0]);
-  // const [showDropdown, setShowDropdown] = useState(true);
+  const [selected, setSelected] = useState(options[0]);
+  const [showDropdown, setShowDropdown] = useState(true);
 
   return (
-    <div className="ui container">
-      {/* <div
+    <Fragment>
+      <Header />
+      <div className="ui container">
+        <Route path="/">
+          <Accordion items={items} />
+        </Route>
+        <Route path="/search">
+          <Search />
+        </Route>
+        <Route path="/dropdown">
+          <Dropdown
+            selected={selected}
+            onSelectedChange={setSelected}
+            options={options}
+            labelName={"Select a color"}
+          />
+        </Route>
+        <Route path="/translate">
+          <Translate />
+        </Route>
+
+        {/* <div
         className="ui pink button"
         style={{ marginTop: "20px", borderRadius: "50px" }}
         onClick={() => setShowDropdown(!showDropdown)}
@@ -55,8 +77,9 @@ const App = () => {
           options={options}
         />
       ) : null} */}
-      <Translate />
-    </div>
+        {/* <Translate /> */}
+      </div>
+    </Fragment>
   );
 };
 export default App;

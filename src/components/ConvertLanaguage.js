@@ -1,22 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import axios from "axios";
 
 function ConvertLanaguage({ userInput, selectedLanguage }) {
-  const [debouncedTranslatedText, setDebouncedTranslatedText] = useState(null);
-  const [results, setResults] = useState("");
+  const [translatedText, setTranslatedText] = useState("");
+  const [debouncedTranslatedText, setDebouncedTranslatedText] = useState(
+    translatedText
+  );
 
   useEffect(() => {
     const debounceTranslations = setTimeout(() => {
-      setDebouncedTranslatedText({
-        userInput: userInput,
-        selectedLanguage: selectedLanguage,
-      });
+      setDebouncedTranslatedText(userInput);
     }, 1000);
 
     return () => {
       clearTimeout(debounceTranslations);
     };
-  }, [userInput, selectedLanguage]);
+  }, [userInput]);
 
   useEffect(() => {
     const callingTranslate = async () => {
@@ -26,22 +25,21 @@ function ConvertLanaguage({ userInput, selectedLanguage }) {
         {
           params: {
             key: "AIzaSyCHUCmpR7cT_yDFHC98CZJy2LTms-IwDlM",
-            q: debouncedTranslatedText["userInput"],
-            target: debouncedTranslatedText["selectedLanguage"]["value"],
+            q: debouncedTranslatedText,
+            target: selectedLanguage["value"],
           },
         }
       );
-      setResults(res["data"]["data"]["translations"][0]["translatedText"]);
+      setTranslatedText(
+        res["data"]["data"]["translations"][0]["translatedText"]
+      );
     };
 
-    if (
-      debouncedTranslatedText !== null &&
-      debouncedTranslatedText["userInput"] !== ""
-    ) {
+    if (debouncedTranslatedText !== "") {
       callingTranslate();
     }
-  }, [debouncedTranslatedText]);
-  return <div>{results}</div>;
+  }, [debouncedTranslatedText, selectedLanguage]);
+  return <Fragment>{translatedText}</Fragment>;
 }
 
 export default ConvertLanaguage;
