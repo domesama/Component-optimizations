@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, Fragment } from "react";
 
-function Dropdown({ options, selected, onSelectedChange }) {
+function Dropdown({ options, selected, onSelectedChange, labelName }) {
   const [open, setOpen] = useState(false);
   const ref = useRef();
 
@@ -36,7 +36,9 @@ function Dropdown({ options, selected, onSelectedChange }) {
       <div className="ui segment">
         <div className="ui form" ref={ref}>
           <div className="field">
-            <label className="label">Select a color</label>
+            <label className="label" style={{ marginLeft: "2.5px" }}>
+              {labelName}
+            </label>
             <div
               onClick={() => setOpen(!open)}
               className={`ui selection dropdown ${
