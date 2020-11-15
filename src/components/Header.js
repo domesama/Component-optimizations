@@ -3,7 +3,7 @@ import Link from "./Link";
 
 function Header() {
   return (
-    <div className="ui secondary pointing menu">
+    <div className="ui fluid four item menu">
       <Link href="/" className="item">
         Accordion
       </Link>
